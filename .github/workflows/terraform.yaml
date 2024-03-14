@@ -1,0 +1,8 @@
+name: Terraform Modules CI
+
+on:
+  workflow_call:
+
+jobs:
+  validate:
+    uses: ./.github/workflows/terraform/validate.yaml
