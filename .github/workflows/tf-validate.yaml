@@ -4,7 +4,7 @@ on:
   workflow_call:
 
 jobs:
-  validate:
+  fmt:
     runs-on: ubuntu-latest
     container:
       image: hashicorp/terraform:1.5
@@ -15,6 +15,14 @@ jobs:
       - name: fmt
         run: |
           terraform fmt -write=false -diff -check -recursive
+  
+  validate:
+    runs-on: ubuntu-latest
+    container:
+      image: hashicorp/terraform:1.5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: validate
         run: |
