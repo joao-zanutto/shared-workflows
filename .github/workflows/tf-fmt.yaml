@@ -1,0 +1,19 @@
+name: Terraform Run fmt
+
+on:
+  workflow_call:
+
+jobs:
+  fmt:
+    runs-on: ubuntu-latest
+    container:
+      image: hashicorp/terraform:1.5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: fmt
+        run: |
+          terraform fmt -no-color -write=true -list=true -recursive
+          
+      - uses: stefanzweifel/git-auto-commit-action@v5
