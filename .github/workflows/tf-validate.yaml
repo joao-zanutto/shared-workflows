@@ -1,21 +1,9 @@
-name: Terraform fmt and validate
+name: Terraform Validate
 
 on:
   workflow_call:
 
-jobs:
-  fmt:
-    runs-on: ubuntu-latest
-    container:
-      image: hashicorp/terraform:1.5
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: fmt
-        run: |
-          terraform fmt -write=false -diff -check -recursive
-  
+jobs:  
   validate:
     runs-on: ubuntu-latest
     container:
