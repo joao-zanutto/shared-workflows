@@ -17,3 +17,6 @@ jobs:
           terraform fmt -no-color -write=true -list=true -recursive
 
       - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Terraform fmt"
+
