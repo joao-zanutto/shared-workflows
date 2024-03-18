@@ -6,11 +6,11 @@ on:
 jobs:  
   validate:
     runs-on: ubuntu-latest
-    container:
-      image: hashicorp/terraform:1.5
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
 
       - name: validate
         run: |
