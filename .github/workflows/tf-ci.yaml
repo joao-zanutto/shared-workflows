@@ -7,33 +7,33 @@ jobs:
   validate:
     name: Terraform Validate
     if: ${{ !github.event.pull_request.merged }}
-    uses: ./.github/workflows/tf-validate.yaml
+    uses: ./.github/workflows/.tf-validate.yaml
 
   lint:
     name: Terraform Lint
     if: ${{ !github.event.pull_request.merged }}
     needs: [validate]
-    uses: ./.github/workflows/tf-lint.yaml
+    uses: ./.github/workflows/.tf-lint.yaml
 
   checkov:
     name: Checkov
     if: ${{ !github.event.pull_request.merged }}
     needs: [validate]
-    uses: ./.github/workflows/tf-checkov.yaml
+    uses: ./.github/workflows/.tf-checkov.yaml
 
   fmt:
     name: Terraform Fmt
     if: ${{ !github.event.pull_request.merged }}
     needs: [lint, checkov]
-    uses: ./.github/workflows/tf-fmt.yaml
+    uses: ./.github/workflows/.tf-fmt.yaml
 
   docs:
     name: Generate Docs
     if: ${{ !github.event.pull_request.merged }}
     needs: [lint, checkov]
-    uses: ./.github/workflows/tf-docs.yaml
+    uses: ./.github/workflows/.tf-docs.yaml
 
   release:
     name: Generate Release
     if: ${{ github.event.pull_request.merged }}
-    uses: ./.github/workflows/tf-release.yaml
+    uses: ./.github/workflows/.tf-release.yaml
