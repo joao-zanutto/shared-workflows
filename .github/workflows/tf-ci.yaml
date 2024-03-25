@@ -6,34 +6,34 @@ on:
 jobs:
   validate:
     name: Terraform Validate
-    if: ${{ !github.event.pull_request.merged }}
+    if: github.event_name == 'pull_request'
     uses: ./.github/workflows/.tf-validate.yaml
 
   lint:
     name: Terraform Lint
-    if: ${{ !github.event.pull_request.merged }}
+    if: github.event_name == 'pull_request'
     needs: [validate]
     uses: ./.github/workflows/.tf-lint.yaml
 
   checkov:
     name: Checkov
-    if: ${{ !github.event.pull_request.merged }}
+    if: github.event_name == 'pull_request'
     needs: [validate]
     uses: ./.github/workflows/.tf-checkov.yaml
 
   fmt:
     name: Terraform Fmt
-    if: ${{ !github.event.pull_request.merged }}
+    if: github.event_name == 'pull_request'
     needs: [lint, checkov]
     uses: ./.github/workflows/.tf-fmt.yaml
 
   docs:
     name: Generate Docs
-    if: ${{ !github.event.pull_request.merged }}
+    if: github.event_name == 'pull_request'
     needs: [lint, checkov]
     uses: ./.github/workflows/.tf-docs.yaml
 
   release:
     name: Generate Release
-    if: ${{ github.event.pull_request.merged }}
+    if: github.event_name == 'push'
     uses: ./.github/workflows/.tf-release.yaml
