@@ -12,25 +12,23 @@ jobs:
   lint:
     name: Terraform Lint
     if: github.event_name == 'pull_request'
-    needs: [validate]
     uses: ./.github/workflows/.tf-lint.yaml
 
   checkov:
     name: Checkov
     if: github.event_name == 'pull_request'
-    needs: [validate]
     uses: ./.github/workflows/.tf-checkov.yaml
 
   fmt:
     name: Terraform Fmt
     if: github.event_name == 'pull_request'
-    needs: [lint, checkov]
+    needs: [validate, lint, checkov]
     uses: ./.github/workflows/.tf-fmt.yaml
 
   docs:
     name: Generate Docs
     if: github.event_name == 'pull_request'
-    needs: [lint, checkov]
+    needs: [validate, lint, checkov]
     uses: ./.github/workflows/.tf-docs.yaml
 
   release:
